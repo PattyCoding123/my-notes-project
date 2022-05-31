@@ -18,7 +18,6 @@ void main() {
   );
 }
 
-// Check for verified commit
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
