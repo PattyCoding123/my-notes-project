@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'firebase_options.dart';
 
-// Check for unintentional changes when cloning git repository onto laptop.
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
