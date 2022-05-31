@@ -1,32 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mynotes/views/login_view.dart';
-import 'firebase_options.dart';
+import 'package:mynotes/firebase_options.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(
-    MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginView(),
-    ),
-  );
-}
-
-// Contains all code for the register view of our app!
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -48,7 +32,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: const Text('Login'),
       ),
       body: FutureBuilder(
         // To initialize Firebase before all other widgets are loaded.
@@ -79,28 +63,28 @@ class _RegisterViewState extends State<RegisterView> {
                         hintText: 'Enter your password here'),
                   ),
 
-                  // When button is pressed, Firebase must authenticate the user
-                  // Catch any errors for creating the user!
+                  // When button is pressed, Firebase must login the user!
+                  // Catch any exception regarding logging in the user!
                   TextButton(
                       onPressed: (() async {
                         final email = _email.text;
                         final password = _password.text;
+
                         try {
-                          // Handle FirebaseAuthException for RegisterView!
+                          // Handle FirebaseAuthException for LoginView!
                           final userCredential = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
+                              .signInWithEmailAndPassword(
                                   email: email, password: password);
+                          print(userCredential);
                         } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            print('Weak password');
-                          } else if (e.code == 'email-already-in-use') {
-                            print('Email already in use');
-                          } else if (e.code == 'invalid-email') {
-                            print('Invalid email entered');
+                          if (e.code == 'user-not-found') {
+                            print('User not found');
+                          } else if (e.code == 'wrong-password') {
+                            print('Wrong password');
                           }
                         }
                       }),
-                      child: const Text('Register')),
+                      child: const Text('Login')),
                 ],
               );
 
