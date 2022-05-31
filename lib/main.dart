@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'firebase_options.dart';
 
@@ -13,42 +13,19 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginView(),
+      home: const HomePage(),
     ),
   );
 }
 
-// Contains all code for the register view of our app!
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
-  @override
-  void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: const Text('Home'),
       ),
       body: FutureBuilder(
         // To initialize Firebase before all other widgets are loaded.
@@ -58,52 +35,15 @@ class _RegisterViewState extends State<RegisterView> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             // Utilizing Connection States to make load screen
-            case ConnectionState
-                .done: // Display TextFields and button after Firebase is initialized
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                        hintText: 'Enter your email here'),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                        hintText: 'Enter your password here'),
-                  ),
-
-                  // When button is pressed, Firebase must authenticate the user
-                  // Catch any errors for creating the user!
-                  TextButton(
-                      onPressed: (() async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        try {
-                          // Handle FirebaseAuthException for RegisterView!
-                          final userCredential = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: email, password: password);
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            print('Weak password');
-                          } else if (e.code == 'email-already-in-use') {
-                            print('Email already in use');
-                          } else if (e.code == 'invalid-email') {
-                            print('Invalid email entered');
-                          }
-                        }
-                      }),
-                      child: const Text('Register')),
-                ],
-              );
-
+            case ConnectionState.done:
+              final user = FirebaseAuth.instance.currentUser;
+              // Handle user verification: Need conditional invocation
+              if (user?.emailVerified ?? false) {
+                print('You are a verified user');
+              } else {
+                print('You need to verify your email first');
+              }
+              return const Text('Done');
             default:
               return const Text('Loading...');
           }
