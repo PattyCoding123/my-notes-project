@@ -19,7 +19,8 @@ void main() {
       home: const HomePage(),
       routes: {
         '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView()
+        '/register/': (context) => const RegisterView(),
+        '/notes/': (context) => const NotesView(),
       },
     ),
   );
@@ -35,7 +36,10 @@ class HomePage extends StatelessWidget {
       future: Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       ),
-      builder: (context, snapshot) {
+      builder: (
+        context,
+        snapshot,
+      ) {
         switch (snapshot.connectionState) {
           // Utilizing Connection States to make load screen
           case ConnectionState.done:
@@ -43,7 +47,7 @@ class HomePage extends StatelessWidget {
             // Handle user verification: Need conditional invocation
             if (user != null) {
               if (user.emailVerified) {
-                print('Email is verified');
+                devtools.log('Email is verified');
               } else {
                 return const VerifyEmailView();
               }
@@ -98,10 +102,10 @@ class _NotesViewState extends State<NotesView> {
                 PopupMenuItem<MenuAction>(
                   value: MenuAction.logout,
                   child: Text('Log out'),
-                )
+                ),
               ];
             },
-          )
+          ),
         ],
       ),
       body: const Text('Hello World!'),
@@ -111,25 +115,26 @@ class _NotesViewState extends State<NotesView> {
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Log out'),
-          content: const Text('Are you sure you want to log out?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('Log out'),
-            )
-          ],
-        );
-      }).then((value) => value ?? false);
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Log out'),
+        content: const Text('Are you sure you want to log out?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+            child: const Text('Log out'),
+          ),
+        ],
+      );
+    },
+  ).then((value) => value ?? false);
 }

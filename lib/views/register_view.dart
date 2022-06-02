@@ -1,6 +1,7 @@
 // Contains all code for the register view of our app!
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools show log;
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -53,25 +54,26 @@ class _RegisterViewState extends State<RegisterView> {
           // When button is pressed, Firebase must authenticate the user
           // Catch any errors for creating the user!
           TextButton(
-              onPressed: (() async {
-                final email = _email.text;
-                final password = _password.text;
-                try {
-                  // Handle FirebaseAuthException for RegisterView!
-                  final userCredential = await FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: email, password: password);
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'weak-password') {
-                    print('Weak password');
-                  } else if (e.code == 'email-already-in-use') {
-                    print('Email already in use');
-                  } else if (e.code == 'invalid-email') {
-                    print('Invalid email entered');
-                  }
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              try {
+                // Handle FirebaseAuthException for RegisterView!
+                final userCredential = await FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: email, password: password);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'weak-password') {
+                  devtools.log('Weak password');
+                } else if (e.code == 'email-already-in-use') {
+                  devtools.log('Email already in use');
+                } else if (e.code == 'invalid-email') {
+                  devtools.log('Invalid email');
                 }
-              }),
-              child: const Text('Register')),
+              }
+            },
+            child: const Text('Register'),
+          ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
@@ -80,7 +82,7 @@ class _RegisterViewState extends State<RegisterView> {
               );
             },
             child: const Text('Already registered? Login here!'),
-          )
+          ),
         ],
       ),
     );
