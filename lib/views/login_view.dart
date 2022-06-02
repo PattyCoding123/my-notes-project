@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
+import 'package:mynotes/constants/route.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -53,7 +55,7 @@ class _LoginViewState extends State<LoginView> {
           // When button is pressed, Firebase must login the user!
           // Catch any exception regarding logging in the user!
           TextButton(
-              onPressed: (() async {
+              onPressed: () async {
                 final email = _email.text;
                 final password = _password.text;
 
@@ -65,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
                     password: password,
                   );
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/notes/',
+                    notesRoute,
                     (route) => false,
                   );
                 } on FirebaseAuthException catch (e) {
@@ -75,12 +77,12 @@ class _LoginViewState extends State<LoginView> {
                     devtools.log('Wrong password');
                   }
                 }
-              }),
+              },
               child: const Text('Login')),
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                '/register/',
+                registerRoute,
                 (route) => false,
               );
             },
