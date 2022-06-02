@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-enum MenuAction { signOut }
+enum MenuAction { logout }
 
 class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
@@ -81,11 +81,11 @@ class _NotesViewState extends State<NotesView> {
             onSelected: (value) async {
               // Use a switch to deal with the PopupMenuItems!
               switch (value) {
-                case MenuAction.signOut:
-                  final shouldSignOut = await showLogOutDialog(context);
-                  devtools.log(shouldSignOut.toString());
-                  if (shouldSignOut) {
-                    await FirebaseAuth.instance.signOut(); // Sign user out
+                case MenuAction.logout:
+                  final shouldlogout = await showLogOutDialog(context);
+                  devtools.log(shouldlogout.toString());
+                  if (shouldlogout) {
+                    await FirebaseAuth.instance.signOut(); // log user out
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       '/login/',
                       (_) => false,
@@ -96,7 +96,9 @@ class _NotesViewState extends State<NotesView> {
             itemBuilder: (context) {
               return const [
                 PopupMenuItem<MenuAction>(
-                    value: MenuAction.signOut, child: Text('Log out'))
+                  value: MenuAction.logout,
+                  child: Text('Log out'),
+                )
               ];
             },
           )
@@ -112,8 +114,8 @@ Future<bool> showLogOutDialog(BuildContext context) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Sign out'),
-          content: const Text('Are you sure you want to sign out?'),
+          title: const Text('Log out'),
+          content: const Text('Are you sure you want to log out?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -125,7 +127,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Sign out'),
+              child: const Text('Log out'),
             )
           ],
         );
