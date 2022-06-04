@@ -60,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                // Handle FirebaseAuthException for signInWithEmailAndPassword method!
+                // Handle Exceptions for login method!
                 await AuthService.firebase().logIn(
                   email: email,
                   password: password,
