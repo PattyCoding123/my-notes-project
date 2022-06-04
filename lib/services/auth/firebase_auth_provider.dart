@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:mynotes/firebase_options.dart';
 import 'package:mynotes/services/auth/auth_user.dart';
 import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
@@ -5,6 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
 
 class FirebaseAuthProvider implements AuthProvider {
+  // Utilizes default no-arg constructors
+
+  // Direct Firebase createUser method returns a user, so we must
+  // return an AuthUser
   @override
   Future<AuthUser> createUser({
     required String email,
@@ -36,6 +42,8 @@ class FirebaseAuthProvider implements AuthProvider {
     }
   }
 
+  // Using the user that FirebaseAuth creates, return an AuthUser
+  // with the isEmailVerified flag true or false
   @override
   AuthUser? get currentUser {
     final user = FirebaseAuth.instance.currentUser;
@@ -46,6 +54,8 @@ class FirebaseAuthProvider implements AuthProvider {
     }
   }
 
+  // Direct Firebase logIn method returns a user, so we must
+  // return an AuthUser
   @override
   Future<AuthUser> logIn({
     required String email,
@@ -64,7 +74,7 @@ class FirebaseAuthProvider implements AuthProvider {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw UserNotLoggedInAuthException();
+        throw UserNotFoundAuthException();
       } else if (e.code == 'wrong-password') {
         throw WrongPasswordAuthException();
       } else {
@@ -93,5 +103,12 @@ class FirebaseAuthProvider implements AuthProvider {
     } else {
       throw UserNotLoggedInAuthException();
     }
+  }
+
+  @override
+  Future<void> initialize() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 }
