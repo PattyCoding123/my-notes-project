@@ -6,7 +6,7 @@ class AuthUser {
   final bool isEmailVerified;
   const AuthUser(this.isEmailVerified);
 
-  // Factory constructor that initializes a current user
-  // whose isEmailVerified flag is either true or false
+  // Factory constructor that initializes a current user using FirebaseAuth "User"
+  // whose isEmailVerified flag is either true or false.
   factory AuthUser.fromFirebase(User user) => AuthUser(user.emailVerified);
 }
