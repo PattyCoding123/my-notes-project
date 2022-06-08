@@ -3,11 +3,17 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class AuthUser {
+  final String? email;
   final bool isEmailVerified;
-  const AuthUser({required this.isEmailVerified});
+  const AuthUser({
+    required this.email,
+    required this.isEmailVerified,
+  });
 
   // Factory constructor that initializes a current user using FirebaseAuth "User"
-  // whose isEmailVerified flag is either true or false.
-  factory AuthUser.fromFirebase(User user) =>
-      AuthUser(isEmailVerified: user.emailVerified);
+  // with an email and whose isEmailVerified flag is either true or false.
+  factory AuthUser.fromFirebase(User user) => AuthUser(
+        email: user.email,
+        isEmailVerified: user.emailVerified,
+      );
 }
