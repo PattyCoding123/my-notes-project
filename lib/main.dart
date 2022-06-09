@@ -1,8 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/constants/route.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/views/login_view.dart';
-import 'firebase_options.dart';
+import 'package:mynotes/views/notes/new_note_view.dart';
+import 'package:mynotes/views/notes/notes_view.dart';
+import 'package:mynotes/views/register_view.dart';
+import 'package:mynotes/views/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +17,13 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      routes: {
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
+        newNoteRoute: (context) => const NewNoteView(),
+      },
     ),
   );
 }
@@ -23,32 +33,32 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: FutureBuilder(
-        // To initialize Firebase before all other widgets are loaded.
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            // Utilizing Connection States to make load screen
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              // Handle user verification: Need conditional invocation
-              if (user?.emailVerified ?? false) {
-                print('You are a verified user');
+    return FutureBuilder(
+      // To initialize Firebase before all other widgets are loaded (AuthService).
+      future: AuthService.firebase().initialize(),
+      builder: (
+        context,
+        snapshot,
+      ) {
+        switch (snapshot.connectionState) {
+          // Utilizing Connection States to make load screen
+          case ConnectionState.done:
+            final user = AuthService.firebase().currentUser; // return AuthUser
+            // Handle user verification: Need conditional invocation
+            if (user != null) {
+              if (user.isEmailVerified) {
+                return const NotesView();
               } else {
-                print('You need to verify your email first');
+                return const VerifyEmailView();
               }
-              return const Text('Done');
-            default:
-              return const Text('Loading...');
-          }
-        },
-      ),
+            } else {
+              return const LoginView();
+            }
+
+          default:
+            return const CircularProgressIndicator(); // Show loading indicator
+        }
+      },
     );
   }
 }
