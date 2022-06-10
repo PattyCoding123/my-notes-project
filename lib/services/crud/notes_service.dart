@@ -352,7 +352,7 @@ class DatabaseNote {
 
 // Const values, avoids hardcoding the strings
 const dbName = 'notes.db';
-const noteTable = 'notes';
+const noteTable = 'note';
 const userTable = 'user';
 const idColumn = 'id';
 const emailColumn = 'email';
