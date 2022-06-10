@@ -69,6 +69,8 @@ class _RegisterViewState extends State<RegisterView> {
                 );
                 await AuthService.firebase().sendEmailVerification();
 
+                // Check mounted property for BuildContext across async gaps
+                if (!mounted) return;
                 Navigator.of(context).pushNamed(verifyEmailRoute);
               } on WeakPasswordAuthException {
                 await showErrorDialog(

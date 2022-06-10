@@ -36,12 +36,16 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Your Notes'),
         actions: [
+          // IconButton action to create note
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(newNoteRoute);
+              // Call createOrUpdateRoute without passing a note argument
+              // to the build context.
+              Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
             },
             icon: const Icon(Icons.add),
           ),
+          // PopupMenuBotton action that currently contains logout option
           PopupMenuButton<MenuAction>(
             // On selected deals with whataever PopupMenuItem was selected!
             onSelected: (value) async {
@@ -51,6 +55,9 @@ class _NotesViewState extends State<NotesView> {
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
                     await AuthService.firebase().logOut(); // log user out
+
+                    // Check mounted property for BuildContext across async gaps
+                    if (!mounted) return;
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       loginRoute,
                       (_) => false,
@@ -84,7 +91,7 @@ class _NotesViewState extends State<NotesView> {
                     case ConnectionState.waiting:
                     case ConnectionState.active:
                       if (snapshot.hasData) {
-                        // Snapshot data for StreamBuilder is all the notes in the database
+                        // The snapshot data for StreamBuilder contains all the notes in the database
                         // which we get from the NotesService stream controller
                         final allNotes = snapshot.data as List<DatabaseNote>;
                         // Return our NotesListView widget with allNotes as the
@@ -93,6 +100,13 @@ class _NotesViewState extends State<NotesView> {
                           notes: allNotes,
                           onDeleteNote: (note) async {
                             await _notesService.deleteNote(id: note.id);
+                          },
+                          // On onTap, pass the current note as an argument
+                          // to the BuildContext of createOrUpdateNoteView
+                          onTap: (note) {
+                            Navigator.of(context).pushNamed(
+                                createOrUpdateNoteRoute,
+                                arguments: note);
                           },
                         );
                       } else {

@@ -70,12 +70,18 @@ class _LoginViewState extends State<LoginView> {
                 // Conditional invocation with ?? null-safe selection
                 if (user?.isEmailVerified ?? false) {
                   // user's email is verified
+
+                  // Check mounted property for BuildContext across async gaps
+                  if (!mounted) return;
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     notesRoute,
                     (route) => false,
                   );
                 } else {
                   // user's email is not verified
+
+                  // Check mounted property for BuildContext across async gaps
+                  if (!mounted) return;
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     verifyEmailRoute,
                     (route) => false,

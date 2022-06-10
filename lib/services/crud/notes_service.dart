@@ -293,6 +293,7 @@ class NotesService {
   }
 }
 
+// Representing an entry in the User Table for the database
 @immutable
 class DatabaseUser {
   final int id;
@@ -316,6 +317,7 @@ class DatabaseUser {
   int get hashCode => id.hashCode;
 }
 
+// Representing an entry in the Note Table for the database
 class DatabaseNote {
   final int id;
   final int userId;
@@ -360,16 +362,15 @@ const isSyncedWithCloudColumn = 'is_synced_with_cloud';
 
 // SQL code to create our database tables
 const createUserTable = '''CREATE TABLE IF NOT EXISTS "user" (
-  "id"	INTEGER NOT NULL,
-  "email"	TEXT NOT NULL UNIQUE,
-  PRIMARY KEY("id" AUTOINCREMENT)
-);''';
-
-const createNoteTable = '''CREATE TABLE "note" (
-	"id"	INTEGER NOT NULL,
-	"user_id"	INTEGER NOT NULL,
-	"text"	TEXT,
-	"isSyncedWithCloud"	INTEGER NOT NULL DEFAULT 0,
-	PRIMARY KEY("id" AUTOINCREMENT),
-	FOREIGN KEY("user_id") REFERENCES "user"("id")
-);''';
+        "id"	INTEGER NOT NULL,
+        "email"	TEXT NOT NULL UNIQUE,
+        PRIMARY KEY("id" AUTOINCREMENT)
+      );''';
+const createNoteTable = '''CREATE TABLE IF NOT EXISTS "note" (
+        "id"	INTEGER NOT NULL,
+        "user_id"	INTEGER NOT NULL,
+        "text"	TEXT,
+        "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY("user_id") REFERENCES "user"("id"),
+        PRIMARY KEY("id" AUTOINCREMENT)
+      );''';

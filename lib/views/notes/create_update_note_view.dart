@@ -1,34 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/services/crud/notes_service.dart';
+import 'package:mynotes/utilities/generics/get_arguments.dart';
 
-class NewNoteView extends StatefulWidget {
-  const NewNoteView({Key? key}) : super(key: key);
+class CreateUpdateNoteView extends StatefulWidget {
+  const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
-  State<NewNoteView> createState() => _NewNoteViewState();
+  State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
 }
 
-class _NewNoteViewState extends State<NewNoteView> {
+class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   DatabaseNote? _note;
   late final NotesService _notesService;
   late final TextEditingController _textController;
 
-  Future<DatabaseNote> createNewNote() async {
-    final existingNote = _note;
+  // Will return either an existing note or create new note depending on the
+  // arguments that were passed to the BuildContext.
+  Future<DatabaseNote> _createOrGetExistingNote(BuildContext context) async {
+    // Get argument that was passed to BuildContext using our own function.
+    final widgetNote = context.getArgument<DatabaseNote>();
 
+    // If a note was passed
+    if (widgetNote != null) {
+      _note = widgetNote;
+      _textController.text = widgetNote.text;
+      return widgetNote;
+    }
+
+    final existingNote = _note;
     if (existingNote != null) {
       return existingNote;
     }
-
     // Expecting a user. Even though it may crash if there is no current user,
     // we should never end up in this situation.
     final currentUser = AuthService.firebase().currentUser!;
-
     // Authentication must be done through email and password, so email must exist.
     final email = currentUser.email!;
     final owner = await _notesService.getUser(email: email);
-    return await _notesService.createNote(owner: owner);
+    final newNote = await _notesService.createNote(owner: owner);
+    // It is mandatory that _note be assigned to the new note that was created,
+    // or else it will not be saved and will get an error regarding a "null
+    // is not a subtype of DatabaseNote in typecast".
+    _note = newNote;
+    return newNote;
   }
 
   void _textControllerListener() async {
@@ -89,11 +104,11 @@ class _NewNoteViewState extends State<NewNoteView> {
         title: const Text('New Note'),
       ),
       body: FutureBuilder(
-        future: createNewNote(),
+        // call create or get note function
+        future: _createOrGetExistingNote(context),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              _note = snapshot.data as DatabaseNote;
               _setupTextControllerListener();
               return TextField(
                 controller: _textController,
