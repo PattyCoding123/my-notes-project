@@ -44,12 +44,20 @@ class NotesService {
     }
   }
 
+  // _cacheNotes inserts all notes from the database into the _notes[] cache
+  // and inserts the newly updated cache into the StreamController
   Future<void> _cacheNotes() async {
     final allNotes = await getAllNotes();
     _notes = allNotes.toList();
     _notesStreamController.add(_notes);
   }
 
+  // This method will update ALL the notes in the database with the changes, but
+  // will return the updated note into the _notes[] cache and update the
+  // StreamController with that cache. NOTE: It will update ALL notes in the
+  // databse and not a specific note because we did not specify a where? and
+  // where arguments. This is just meant to work without hot restarting/ restarting.
+  // for demonstration purposes.
   Future<DatabaseNote> updateNote({
     required DatabaseNote note,
     required String text,

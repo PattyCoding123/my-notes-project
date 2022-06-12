@@ -12,16 +12,17 @@ class CreateUpdateNoteView extends StatefulWidget {
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   DatabaseNote? _note;
-  late final NotesService _notesService;
+  late final NotesService _notesService; // CRUD services
   late final TextEditingController _textController;
 
   // Will return either an existing note or create new note depending on the
   // arguments that were passed to the BuildContext.
   Future<DatabaseNote> _createOrGetExistingNote(BuildContext context) async {
-    // Get argument that was passed to BuildContext using our own function.
+    // Get the argument that was passed to BuildContext using our own function.
     final widgetNote = context.getArgument<DatabaseNote>();
 
-    // If a note was passed
+    // If a note was passed as a BuildContext argument, update the textController
+    // to hold the current text of that note and return it.
     if (widgetNote != null) {
       _note = widgetNote;
       _textController.text = widgetNote.text;
@@ -46,6 +47,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     return newNote;
   }
 
+  // Notices changes made to the text and will update the note in the database
+  // based on those changes.
   void _textControllerListener() async {
     final note = _note;
     if (note == null) {
@@ -59,6 +62,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     );
   }
 
+  // Removes the previous textControllerListener and adds in a new one.
   void _setupTextControllerListener() {
     _textController.removeListener(_textControllerListener);
     _textController.addListener(_textControllerListener);
@@ -71,6 +75,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     }
   }
 
+  // Saves note in the database as along as there is text in the exisiting note.
   void _saveNoteIfTextNotEmpty() async {
     final note = _note;
     final text = _textController.text;
