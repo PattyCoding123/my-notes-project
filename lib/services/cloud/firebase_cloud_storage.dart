@@ -33,7 +33,8 @@ class FirebaseCloudStorage {
     }
   }
 
-  // Method to get all the notes for a specified user
+  // Method to get all the notes for a specified user as a Stream of an Iterable
+  // of CloudNotes
   Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) =>
       // "snapshot" subscribes us to all the changes happening to the firestore
       // data, and we will map these changes to the stream (since snapshots
@@ -57,18 +58,10 @@ class FirebaseCloudStorage {
           )
           .get() // Return query snapshot which has a list of documents.
           .then(
-            // Return a list of CloudNotes constructed from the list of documents
-            // provided by the query snapshot.
+            // Return an Iterable of CloudNotes constructed from the Iterable
+            // of documents provided by the query snapshot.
             // Remember, documents are represented as a QueryDocumentSnapshot.
-            (value) => value.docs.map(
-              (doc) {
-                return CloudNote(
-                  documentId: doc.id,
-                  ownerUserId: doc.data()[ownerUserIdFieldName] as String,
-                  text: doc.data()[textFieldName] as String,
-                );
-              },
-            ),
+            (value) => value.docs.map((doc) => CloudNote.fromSnapshot(doc)),
           );
     } catch (e) {
       throw CouldNotGetAllNotesException();
@@ -77,13 +70,21 @@ class FirebaseCloudStorage {
 
   // Method to create new notes and store them into the Cloud Firestore database.
   // Use cloud_storage_constants to fill in field name requirements.
-  void createNewNote({required String ownerUserId}) async {
+  // Return a CloudNote using the information from the newly created document.
+  Future<CloudNote> createNewNote({required String ownerUserId}) async {
     // Cloud Firestore's add method returns a Future document reference, so we must
     // await on it.
-    await notes.add({
+    final document = await notes.add({
       ownerUserIdFieldName: ownerUserId,
       textFieldName: '',
     });
+
+    final fetchedNote = await document.get();
+    return CloudNote(
+      documentId: fetchedNote.id,
+      ownerUserId: fetchedNote.id,
+      text: '',
+    );
   }
 
   // Instance that calls to private factory constructor

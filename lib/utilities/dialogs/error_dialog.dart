@@ -9,6 +9,7 @@ Future<void> showErrorDialog(
     context: context,
     title: 'An error occured',
     content: text,
+    // Function returns a mapping of options for users to choose in dialog.
     optionsBuilder: () => {
       'OK': null,
     },

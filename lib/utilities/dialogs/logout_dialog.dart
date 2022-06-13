@@ -7,6 +7,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
     context: context,
     title: 'Logout',
     content: 'Are you sure you want to log out?',
+    // Function returns a mapping of options for user to choose in dialog
     optionsBuilder: () => {
       'Cancel': false,
       'Log out': true,

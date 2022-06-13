@@ -21,7 +21,8 @@ Future<T?> showGenericDialog<T>({
         title: Text(title),
         content: Text(content),
 
-        // We will create a list of TextButtons using the mapping of options.
+        // We will create a list of TextButtons using the map that was returned
+        // optionsBuilder. optionTitle is the key for each pair.
         actions: options.keys.map((optionTitle) {
           final T value = options[optionTitle];
           return TextButton(

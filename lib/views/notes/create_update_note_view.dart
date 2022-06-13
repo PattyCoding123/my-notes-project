@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
-import 'package:mynotes/services/crud/notes_service.dart';
 import 'package:mynotes/utilities/generics/get_arguments.dart';
+import 'package:mynotes/services/cloud/cloud_note.dart';
+import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({Key? key}) : super(key: key);
@@ -11,15 +12,15 @@ class CreateUpdateNoteView extends StatefulWidget {
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
-  DatabaseNote? _note;
-  late final NotesService _notesService; // CRUD services
+  CloudNote? _note;
+  late final FirebaseCloudStorage _notesService; // Cloud services
   late final TextEditingController _textController;
 
-  // Will return either an existing note or create new note depending on the
-  // arguments that were passed to the BuildContext.
-  Future<DatabaseNote> _createOrGetExistingNote(BuildContext context) async {
+  // Will return either an existing cloud note or create a new one depending on
+  // the arguments that were passed to the BuildContext.
+  Future<CloudNote> _createOrGetExistingNote(BuildContext context) async {
     // Get the argument that was passed to BuildContext using our own function.
-    final widgetNote = context.getArgument<DatabaseNote>();
+    final widgetNote = context.getArgument<CloudNote>();
 
     // If a note was passed as a BuildContext argument, update the textController
     // to hold the current text of that note and return it.
@@ -29,6 +30,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       return widgetNote;
     }
 
+    // If the _note member is already initalized, return it.
     final existingNote = _note;
     if (existingNote != null) {
       return existingNote;
@@ -36,19 +38,17 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     // Expecting a user. Even though it may crash if there is no current user,
     // we should never end up in this situation.
     final currentUser = AuthService.firebase().currentUser!;
-    // Authentication must be done through email and password, so email must exist.
-    final email = currentUser.email;
-    final owner = await _notesService.getUser(email: email);
-    final newNote = await _notesService.createNote(owner: owner);
+    // Get userId (uid from Firebase)
+    final userId = currentUser.id;
+    final newNote = await _notesService.createNewNote(ownerUserId: userId);
     // It is mandatory that _note be assigned to the new note that was created,
-    // or else it will not be saved and will get an error regarding a "null
-    // is not a subtype of DatabaseNote in typecast".
+    // or else it will not be saved and will get an error.
     _note = newNote;
     return newNote;
   }
 
-  // Notices changes made to the text and will update the note in the database
-  // based on those changes.
+  // Notices changes made to the text and will update the note in Cloud Firestore
+  // database based on those changes.
   void _textControllerListener() async {
     final note = _note;
     if (note == null) {
@@ -57,7 +57,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
 
     final text = _textController.text;
     await _notesService.updateNote(
-      note: note,
+      documentId: note.documentId,
       text: text,
     );
   }
@@ -68,20 +68,22 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     _textController.addListener(_textControllerListener);
   }
 
+  // Deletes the note from the Cloud Firestore database if there is no text.
   void _deleteNoteIfTextIsEmpty() {
     final note = _note;
     if (_textController.text.isEmpty && note != null) {
-      _notesService.deleteNote(id: note.id);
+      _notesService.deleteNote(documentId: note.documentId);
     }
   }
 
-  // Saves note in the database as along as there is text in the exisiting note.
+  // Saves note in Cloud Firestore database
+  // as along as there is text in the exisiting note.
   void _saveNoteIfTextNotEmpty() async {
     final note = _note;
     final text = _textController.text;
     if (text.isNotEmpty && note != null) {
       await _notesService.updateNote(
-        note: note,
+        documentId: note.documentId,
         text: text,
       );
     }
@@ -89,7 +91,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
 
   @override
   void initState() {
-    _notesService = NotesService();
+    _notesService = FirebaseCloudStorage(); // Singleton instance
     _textController = TextEditingController();
     super.initState();
   }

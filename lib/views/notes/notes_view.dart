@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/constants/route.dart';
 import 'package:mynotes/enums/menu_action.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
-import 'package:mynotes/services/crud/notes_service.dart';
+import 'package:mynotes/services/cloud/cloud_note.dart';
+import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
 import 'package:mynotes/utilities/dialogs/logout_dialog.dart';
 import 'package:mynotes/views/notes/notes_list_view.dart';
 
@@ -14,19 +15,16 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
-  // Declare a NotesService variable
-  late final NotesService _notesService;
+  // Declare a FirebaseCloudStorage variable
+  late final FirebaseCloudStorage _notesService;
 
-  // Force expose the current user's email to NoteView for getOrCreateUser
-  String get userEmail => AuthService.firebase().currentUser!.email;
+  // Force expose the current user's id (uid)
+  String get userId => AuthService.firebase().currentUser!.id;
 
-  // We need to input 2 life cycles events:
-  // 1. Open database once NotesView is created
-  // 2. Close database once NotesView is disposed
   @override
   void initState() {
-    // Make an instance of NotesService to use inside NotesView
-    _notesService = NotesService();
+    // Use the FirebaseCloudStorage singleton
+    _notesService = FirebaseCloudStorage();
     super.initState();
   }
 
@@ -36,10 +34,10 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Your Notes'),
         actions: [
-          // IconButton action to create note
+          // IconButton action to create a new cloud note
           IconButton(
             onPressed: () {
-              // Call createOrUpdateRoute without passing a note argument
+              // Call createOrUpdateRoute without passing a cloud note argument
               // to the build context.
               Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
             },
@@ -76,48 +74,34 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        // Get or create current user
-        future: _notesService.getOrCreateUser(email: userEmail),
-        // Builder, during the done connection state, returns a Stream Builder
+      body: StreamBuilder(
+        // Gets all the current user's notes from the Cloud Firestore database.
+        stream: _notesService.allNotes(ownerUserId: userId),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return StreamBuilder(
-                // Gets all notes from the database
-                stream: _notesService.allNotes,
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                      if (snapshot.hasData) {
-                        // The snapshot data for StreamBuilder contains all the notes in the database
-                        // which we get from the NotesService stream controller
-                        final allNotes = snapshot.data as List<DatabaseNote>;
-                        // Return our NotesListView widget with allNotes as the
-                        // notes parameter.
-                        return NotesListView(
-                          notes: allNotes,
-                          onDeleteNote: (note) async {
-                            await _notesService.deleteNote(id: note.id);
-                          },
-                          // On onTap, pass the current note as an argument
-                          // to the BuildContext of createOrUpdateNoteView
-                          onTap: (note) {
-                            Navigator.of(context).pushNamed(
-                                createOrUpdateNoteRoute,
-                                arguments: note);
-                          },
-                        );
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-
-                    default:
-                      return const CircularProgressIndicator();
-                  }
-                },
-              );
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              if (snapshot.hasData) {
+                // The snapshot data for StreamBuilder contains all the notes
+                // from the Cloud Firestore database.
+                final allNotes = snapshot.data as Iterable<CloudNote>;
+                // Return our NotesListView widget with allNotes as the
+                // notes parameter.
+                return NotesListView(
+                  notes: allNotes,
+                  onDeleteNote: (note) async {
+                    await _notesService.deleteNote(documentId: note.documentId);
+                  },
+                  // On onTap, pass the current note as an argument
+                  // to the BuildContext of createOrUpdateNoteView
+                  onTap: (note) {
+                    Navigator.of(context)
+                        .pushNamed(createOrUpdateNoteRoute, arguments: note);
+                  },
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
 
             default:
               return const CircularProgressIndicator();

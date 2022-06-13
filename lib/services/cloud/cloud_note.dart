@@ -16,7 +16,7 @@ class CloudNote {
 
   // Factory constructor to make a CloudNote object from a
   // QueryDocumentSnapshot object which is from Cloud Firestore.
-  // A document in represented as a QueryDocumentSnapshot
+  // A document in represented as a QueryDocumentSnapshot.
   CloudNote.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : documentId = snapshot.id,
         ownerUserId = snapshot.data()[ownerUserIdFieldName],
