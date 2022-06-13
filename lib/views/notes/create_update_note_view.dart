@@ -37,7 +37,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     // we should never end up in this situation.
     final currentUser = AuthService.firebase().currentUser!;
     // Authentication must be done through email and password, so email must exist.
-    final email = currentUser.email!;
+    final email = currentUser.email;
     final owner = await _notesService.getUser(email: email);
     final newNote = await _notesService.createNote(owner: owner);
     // It is mandatory that _note be assigned to the new note that was created,

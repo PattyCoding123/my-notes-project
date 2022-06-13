@@ -18,7 +18,7 @@ class _NotesViewState extends State<NotesView> {
   late final NotesService _notesService;
 
   // Force expose the current user's email to NoteView for getOrCreateUser
-  String get userEmail => AuthService.firebase().currentUser!.email!;
+  String get userEmail => AuthService.firebase().currentUser!.email;
 
   // We need to input 2 life cycles events:
   // 1. Open database once NotesView is created

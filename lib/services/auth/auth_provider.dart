@@ -3,7 +3,7 @@ import 'package:mynotes/services/auth/auth_user.dart';
 abstract class AuthProvider {
   AuthUser? get currentUser; // Either return an AuthUser object or return null
 
-  // Call await on all methods that return a Future
+  // Call await on all methods that return a Future value (exception: void)
 
   Future<void> initialize();
 
