@@ -6,6 +6,10 @@ import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
 
+// Implementation of methods from FirebaseAuth such that they work
+// with out Auth Provider services. This class interacts directly
+// with Firebase and is necessary to avoid doing direct calls
+// in the main UI of the application.
 class FirebaseAuthProvider implements AuthProvider {
   // Utilizes default no-arg constructors
 
