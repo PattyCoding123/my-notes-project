@@ -35,6 +35,7 @@ class _LoginViewState extends State<LoginView> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
+      // Column will display widgets vertically
       body: Column(
         children: [
           TextField(
