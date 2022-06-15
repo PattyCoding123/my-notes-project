@@ -50,6 +50,8 @@ class HomePage extends StatelessWidget {
     // [add] indicates the event we are trying to push.
     // AuthBloc will emit a state for the depending on
     // the context of the application.
+
+    // First, call the AuthEventInitialize
     context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
