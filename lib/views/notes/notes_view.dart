@@ -83,7 +83,8 @@ class _NotesViewState extends State<NotesView> {
             case ConnectionState.active:
               if (snapshot.hasData) {
                 // The snapshot data for StreamBuilder contains all the notes
-                // from the Cloud Firestore database.
+                // from the Cloud Firestore database that were placed in the
+                // stream via the allNotes method in FirebaseCloudStorage.
                 final allNotes = snapshot.data as Iterable<CloudNote>;
                 // Return our NotesListView widget with allNotes as the
                 // notes parameter.
