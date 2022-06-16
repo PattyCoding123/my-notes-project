@@ -24,8 +24,8 @@ class AuthEventRegister extends AuthEvent {
 }
 
 // Event of AuthEvent that indicates the user should register.
-class AuthEventShouldRegister extends AuthEvent {
-  const AuthEventShouldRegister();
+class AuthEventRegistering extends AuthEvent {
+  const AuthEventRegistering();
 }
 
 // Event of AuthEvent that indicates the user is trying to log in.

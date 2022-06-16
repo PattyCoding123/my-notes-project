@@ -1,14 +1,21 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:mynotes/services/auth/auth_user.dart';
+import 'package:equatable/equatable.dart';
 
 @immutable
 abstract class AuthState {
   const AuthState();
 }
 
-// State of AuthState that indicates the application is loading.
-class AuthStateLoading extends AuthState {
-  const AuthStateLoading();
+// State of AuthState that indicates the application is uninitialzed.
+class AuthStateUninitialized extends AuthState {
+  const AuthStateUninitialized();
+}
+
+// State of AuthState that indicates the user is registering.
+class AuthStateRegistering extends AuthState {
+  final Exception? exception;
+  const AuthStateRegistering(this.exception);
 }
 
 // State of AuthState that indicates the user is logged in.
@@ -23,13 +30,17 @@ class AuthStateNeedsVerification extends AuthState {
 }
 
 // State of AuthState that indicates the user is logged out.
-class AuthStateLoggedOut extends AuthState {
+// Since internals can be different, we need to include EquatableMixin
+// to differentiate the different states of AuthStateLoggedOut.
+// This state will also determine the loading screen for logging in/out.
+class AuthStateLoggedOut extends AuthState with EquatableMixin {
   final Exception? exception;
-  const AuthStateLoggedOut(this.exception);
-}
+  final bool isLoading;
+  const AuthStateLoggedOut({
+    required this.exception,
+    required this.isLoading,
+  });
 
-// State of AuthState that indicates the user has failed to log out.
-class AuthStateLogoutFailure extends AuthState {
-  final Exception exception;
-  const AuthStateLogoutFailure(this.exception);
+  @override
+  List<Object?> get props => [exception, isLoading];
 }
