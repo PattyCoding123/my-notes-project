@@ -5,7 +5,6 @@ import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
-import 'package:mynotes/utilities/dialogs/loading_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
-  CloseDialog? _closeDialogHandle; // typedef function
 
   @override
   void initState() {
@@ -43,23 +41,6 @@ class _LoginViewState extends State<LoginView> {
         // with a loading progress field either true or false depending on
         // whether the user has sucessfully logged in or not respectfully.
         if (state is AuthStateLoggedOut) {
-          // set closeDialog as the handle.
-          final closeDialog = _closeDialogHandle;
-          if (!state.isLoading && closeDialog != null) {
-            // Pop the closeDialog view from the main UI by calling closeDialog
-            // and set the handle to null if the state is no longer
-            // loading.
-            closeDialog();
-            _closeDialogHandle = null;
-          } else if (state.isLoading && closeDialog == null) {
-            // If state is loading and closeDialog is null, have the
-            // _closeDialogHandle be initialized with showLoadingDialog.
-            _closeDialogHandle = showLoadingDialog(
-              context: context,
-              text: 'Loading...',
-            );
-          }
-
           if (state.exception is UserNotFoundAuthException ||
               state.exception is WrongPasswordAuthException) {
             await showErrorDialog(context, 'Wrong email or password');
