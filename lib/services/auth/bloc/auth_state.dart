@@ -29,7 +29,8 @@ class AuthStateNeedsVerification extends AuthState {
   const AuthStateNeedsVerification();
 }
 
-// State of AuthState that indicates the user is logged out.
+// State of AuthState that indicates the user is logged out (meaning
+// they should be in the log in screen/not in the notes view).
 // Since internals can be different, we need to include EquatableMixin
 // to differentiate the different states of AuthStateLoggedOut.
 // This state will also determine the loading screen for logging in/out.
