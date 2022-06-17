@@ -24,8 +24,8 @@ class AuthEventRegister extends AuthEvent {
 }
 
 // Event of AuthEvent that indicates the user should register.
-class AuthEventRegistering extends AuthEvent {
-  const AuthEventRegistering();
+class AuthEventShouldRegister extends AuthEvent {
+  const AuthEventShouldRegister();
 }
 
 // Event of AuthEvent that indicates the user is trying to log in.
@@ -34,6 +34,12 @@ class AuthEventLogIn extends AuthEvent {
   final String email;
   final String password;
   const AuthEventLogIn(this.email, this.password);
+}
+
+// Event of AuthEvent that indicates the user is trying to reset their password.
+class AuthEventForgotPassword extends AuthEvent {
+  final String? email;
+  const AuthEventForgotPassword({this.email});
 }
 
 // Event of AuthEvent that indicates the user is trying to log out.

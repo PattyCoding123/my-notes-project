@@ -3,14 +3,67 @@ import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 
-// AuthBloc handles AuthEvents and what states should be produced.
+// AuthBloc handles AuthEvents and what states should be emitted from
+// certain AuthEvents. Each on<Event> is defined for each AuthEvent.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthProvider provider)
       : super(const AuthStateUninitialized(isLoading: true)) {
+    // Should register event
+    on<AuthEventShouldRegister>((event, emit) {
+      emit(const AuthStateRegistering(
+        exception: null,
+        isLoading: false,
+      ));
+    });
+
+    // Forgot password event
+    on<AuthEventForgotPassword>((event, emit) async {
+      // Initial state of AuthStateForgotPassword where user is idling
+      // in the ForgotPasswordView.
+      emit(const AuthStateForgotPassword(
+        exception: null,
+        hasSentEmail: false,
+        isLoading: false,
+      ));
+
+      final email = event.email;
+      if (email == null) {
+        return; // The user just wanted to go to the forgot-password screen.
+      }
+
+      // The user wants to actually send a forgot-password email.
+      // Begin the loading screen.
+      emit(const AuthStateForgotPassword(
+        exception: null,
+        hasSentEmail: false,
+        isLoading: true,
+      ));
+
+      bool didSendEmail;
+      Exception? exception;
+      try {
+        await provider.sendPasswordReset(toEmail: email);
+        didSendEmail = true;
+        exception = null;
+      } on Exception catch (e) {
+        didSendEmail = false;
+        exception = e;
+      }
+
+      // End the loading screen.
+      emit(AuthStateForgotPassword(
+        exception: exception,
+        hasSentEmail: didSendEmail,
+        isLoading: false,
+      ));
+    });
+
     // Send email verification event
     on<AuthEventSendEmailVerification>(
       (event, emit) async {
         await provider.sendEmailVerification();
+        // Stay on whatever state we are at during the sendEmailVerification
+        // event, which should be the AuthStateNeedsVerification state.
         emit(state);
       },
     );

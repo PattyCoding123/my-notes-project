@@ -1,29 +1,32 @@
-import 'package:flutter/material.dart';
+// loading_dialog.dart is no longer needed and has been commented out.
+// ===================================================================
 
-typedef CloseDialog = void Function();
+// import 'package:flutter/material.dart';
 
-CloseDialog showLoadingDialog({
-  required BuildContext context,
-  required String text,
-}) {
-  final dialog = AlertDialog(
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const CircularProgressIndicator(),
-        const SizedBox(
-          height: 10.0,
-        ),
-        Text(text),
-      ],
-    ),
-  );
+// typedef CloseDialog = void Function();
 
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => dialog,
-  );
+// CloseDialog showLoadingDialog({
+//   required BuildContext context,
+//   required String text,
+// }) {
+//   final dialog = AlertDialog(
+//     content: Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         const CircularProgressIndicator(),
+//         const SizedBox(
+//           height: 10.0,
+//         ),
+//         Text(text),
+//       ],
+//     ),
+//   );
 
-  return () => Navigator.of(context).pop;
-}
+//   showDialog(
+//     context: context,
+//     barrierDismissible: false,
+//     builder: (context) => dialog,
+//   );
+
+//   return () => Navigator.of(context).pop;
+// }

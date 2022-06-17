@@ -27,6 +27,17 @@ class AuthStateRegistering extends AuthState {
   }) : super(isLoading: isLoading);
 }
 
+// State of AuthState that indicates the user forgot their password.
+class AuthStateForgotPassword extends AuthState {
+  final Exception? exception;
+  final bool hasSentEmail;
+  const AuthStateForgotPassword({
+    required this.exception,
+    required this.hasSentEmail,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
+}
+
 // State of AuthState that indicates the user is logged in.
 class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
