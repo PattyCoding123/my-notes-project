@@ -49,41 +49,43 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         appBar: AppBar(title: const Text('Forgot Password')),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Text(
-                'If you forgot your password, simply enter your email and press the button so that we can send you an email to reset your password',
-              ),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                autofocus: true,
-                controller: _controller,
-                decoration: const InputDecoration(
-                  hintText: 'Your email address...',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text(
+                  'If you forgot your password, simply enter your email and press the button so that we can send you an email to reset your password',
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  final email = _controller.text;
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  autofocus: true,
+                  controller: _controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Your email address...',
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    final email = _controller.text;
 
-                  // Add AuthEventForgotPassword event with an email
-                  // which will trigger a loading screen while the AuthBloc
-                  // tells Firebase to send a reset password email.
-                  context.read<AuthBloc>().add(
-                        AuthEventForgotPassword(email: email),
-                      );
-                },
-                child: const Text('Send me a password reset link'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Add AuthEventLogOut event to go back to the login screen.
-                  context.read<AuthBloc>().add(const AuthEventLogOut());
-                },
-                child: const Text('Back to login page'),
-              ),
-            ],
+                    // Add AuthEventForgotPassword event with an email
+                    // which will trigger a loading screen while the AuthBloc
+                    // tells Firebase to send a reset password email.
+                    context.read<AuthBloc>().add(
+                          AuthEventForgotPassword(email: email),
+                        );
+                  },
+                  child: const Text('Send me a password reset link'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Add AuthEventLogOut event to go back to the login screen.
+                    context.read<AuthBloc>().add(const AuthEventLogOut());
+                  },
+                  child: const Text('Back to login page'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

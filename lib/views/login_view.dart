@@ -67,62 +67,64 @@ class _LoginViewState extends State<LoginView> {
         // Column will display widgets vertically
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Text(
-                'Please log into your account in order to interact with your notes!',
-              ),
-              TextField(
-                controller: _email,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration:
-                    const InputDecoration(hintText: 'Enter your email here'),
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration:
-                    const InputDecoration(hintText: 'Enter your password here'),
-              ),
-              // BlocListener will listen to the changes in the state and will
-              // handle dialogs if the Bloc fails to output the AuthStateLoggedIn
-              // AuthState after the AuthEventLogIn has been invoked.
-              TextButton(
-                onPressed: () async {
-                  final email = _email.text;
-                  final password = _password.text;
-                  context.read<AuthBloc>().add(
-                        AuthEventLogIn(
-                          email,
-                          password,
-                        ),
-                      );
-                },
-                child: const Text('Log in'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Add the AuthEventForgotPassword event so that AuthBloc
-                  // sends the user to the ForgotPasswordView.
-                  context.read<AuthBloc>().add(
-                        const AuthEventForgotPassword(),
-                      );
-                },
-                child: const Text('I forgot my password'),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(
-                        const AuthEventShouldRegister(),
-                      );
-                },
-                child: const Text('Not registered yet? Register here!'),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text(
+                  'Please log into your account in order to interact with your notes!',
+                ),
+                TextField(
+                  controller: _email,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration:
+                      const InputDecoration(hintText: 'Enter your email here'),
+                ),
+                TextField(
+                  controller: _password,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter your password here'),
+                ),
+                // BlocListener will listen to the changes in the state and will
+                // handle dialogs if the Bloc fails to output the AuthStateLoggedIn
+                // AuthState after the AuthEventLogIn has been invoked.
+                TextButton(
+                  onPressed: () async {
+                    final email = _email.text;
+                    final password = _password.text;
+                    context.read<AuthBloc>().add(
+                          AuthEventLogIn(
+                            email,
+                            password,
+                          ),
+                        );
+                  },
+                  child: const Text('Log in'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Add the AuthEventForgotPassword event so that AuthBloc
+                    // sends the user to the ForgotPasswordView.
+                    context.read<AuthBloc>().add(
+                          const AuthEventForgotPassword(),
+                        );
+                  },
+                  child: const Text('I forgot my password'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventShouldRegister(),
+                        );
+                  },
+                  child: const Text('Not registered yet? Register here!'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
