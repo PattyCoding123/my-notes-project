@@ -35,37 +35,23 @@ class FirebaseCloudStorage {
 
   // Method to get all the notes for a specified user as a Stream of an Iterable
   // of CloudNotes
-  Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) =>
-      // "snapshot" subscribes us to all the changes happening to the firestore
-      // data, and we will map these changes to the stream (since snapshots
-      // is a stream of QuerySnapshots). We will be inserting an Iterable of
-      // CloudNotes to the stream.
-      notes.snapshots().map((event) => event.docs // Get documents from snapshot
-          // Return an Iterable of CloudNotes. These notes are constructed
-          // by the documents from firestore.
-          .map((doc) => CloudNote.fromSnapshot(doc))
-          // The "where" indicates the notes
-          // that are being converted into CloudNotes belong to the current user.
-          .where((note) => note.ownerUserId == ownerUserId));
+  Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) {
+    final allNotes = notes
+        // where filters out all notes by the ownerUserIdFieldName constant
+        // or 'user_id' such that we only retrieve the notes that have
+        // a user_id equal to the parameter of this function.
+        .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
+        // "snapshot" subscribes us to all the changes happening to the firestore
+        // data, and we will map these changes to the stream (since snapshots
+        // is a stream of QuerySnapshots). We will be inserting an Iterable of
+        // CloudNotes to the stream.
+        .snapshots()
+        .map((event) => event.docs // Get documents from snapshot
+            // Return an Iterable of CloudNotes. These notes are constructed
+            // by the documents from firestore.
+            .map((doc) => CloudNote.fromSnapshot(doc)));
 
-  // Method to get notes by the user's id
-  Future<Iterable<CloudNote>> getNotes({required String ownerUserId}) async {
-    try {
-      return await notes
-          .where(
-            ownerUserIdFieldName,
-            isEqualTo: ownerUserId,
-          )
-          .get() // Return query snapshot which has a list of documents.
-          .then(
-            // Return an Iterable of CloudNotes constructed from the Iterable
-            // of documents provided by the query snapshot.
-            // Remember, documents are represented as a QueryDocumentSnapshot.
-            (value) => value.docs.map((doc) => CloudNote.fromSnapshot(doc)),
-          );
-    } catch (e) {
-      throw CouldNotGetAllNotesException();
-    }
+    return allNotes;
   }
 
   // Method to create new notes and store them into the Cloud Firestore database.

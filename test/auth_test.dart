@@ -128,6 +128,17 @@ void main() {
           );
         },
       );
+
+      test(
+        'Should be able to catch errors when resetting password',
+        () async {
+          expect(provider.sendPasswordReset(toEmail: 'not-email'),
+              throwsA(const TypeMatcher<InvalidEmailAuthException>()));
+
+          expect(provider.sendPasswordReset(toEmail: 'cannot-find-user'),
+              throwsA(const TypeMatcher<UserNotFoundAuthException>()));
+        },
+      );
     },
   );
 }
@@ -200,5 +211,18 @@ class MockAuthProvider implements AuthProvider {
       email: 'email',
     );
     _user = newUser;
+  }
+
+  @override
+  Future<void> sendPasswordReset({required String toEmail}) async {
+    if (toEmail == 'not-email') {
+      throw InvalidEmailAuthException();
+    } else if (toEmail == 'cannot-find-user') {
+      throw UserNotFoundAuthException();
+    } else {
+      await Future.delayed(
+        const Duration(seconds: 2),
+      );
+    }
   }
 }

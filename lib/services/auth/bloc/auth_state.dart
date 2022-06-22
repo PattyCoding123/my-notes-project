@@ -1,40 +1,74 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:mynotes/services/auth/auth_user.dart';
+import 'package:equatable/equatable.dart';
 
 @immutable
 abstract class AuthState {
-  const AuthState();
+  final bool isLoading;
+  final String? loadingText;
+  const AuthState({
+    required this.isLoading,
+    this.loadingText = 'Wait just a moment...',
+  });
 }
 
-// State of AuthState that indicates the application is loading.
-class AuthStateLoading extends AuthState {
-  const AuthStateLoading();
+// State of AuthState that indicates the application is uninitialzed.
+class AuthStateUninitialized extends AuthState {
+  const AuthStateUninitialized({required bool isLoading})
+      : super(isLoading: isLoading);
+}
+
+// State of AuthState that indicates the user is registering.
+class AuthStateRegistering extends AuthState {
+  final Exception? exception;
+  const AuthStateRegistering({
+    required this.exception,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
+}
+
+// State of AuthState that indicates the user forgot their password.
+class AuthStateForgotPassword extends AuthState {
+  final Exception? exception;
+  final bool hasSentEmail;
+  const AuthStateForgotPassword({
+    required this.exception,
+    required this.hasSentEmail,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
 }
 
 // State of AuthState that indicates the user is logged in.
 class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
-  const AuthStateLoggedIn(this.user);
-}
-
-// State of AuthState that indicates the user has failed to log in.
-class AuthStateLoginFailure extends AuthState {
-  final Exception exception;
-  const AuthStateLoginFailure(this.exception);
+  const AuthStateLoggedIn({
+    required this.user,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
 }
 
 // State of AuthState that indicates the user must verify their email.
 class AuthStateNeedsVerification extends AuthState {
-  const AuthStateNeedsVerification();
+  const AuthStateNeedsVerification({required bool isLoading})
+      : super(isLoading: isLoading);
 }
 
-// State of AuthState that indicates the user is logged out.
-class AuthStateLoggedOut extends AuthState {
-  const AuthStateLoggedOut();
-}
+// State of AuthState that indicates the user is logged out (meaning
+// they should be in the log in screen/not in the notes view).
+// Since internals can be different, we need to include EquatableMixin
+// to differentiate the different states of AuthStateLoggedOut.
+// This state will also determine the loading screen for logging in/out.
+class AuthStateLoggedOut extends AuthState with EquatableMixin {
+  final Exception? exception;
+  const AuthStateLoggedOut({
+    required this.exception,
+    required bool isLoading,
+    String? loadingText,
+  }) : super(
+          isLoading: isLoading,
+          loadingText: loadingText,
+        );
 
-// State of AuthState that indicates the user has failed to log out.
-class AuthStateLogoutFailure extends AuthState {
-  final Exception exception;
-  const AuthStateLogoutFailure(this.exception);
+  @override
+  List<Object?> get props => [exception, isLoading];
 }
