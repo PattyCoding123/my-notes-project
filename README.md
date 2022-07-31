@@ -23,7 +23,7 @@
     logic, and it also uses Firebase for backend authentication and data storage with Cloud Storage. The app allows users to sign-up for an account which they must
     verify with their email address, and once they reach the main page of the app, they can create, read, update, delete, and even share notes.
     <br />
-    <a href="https://github.com/PattyCoding123/my-notes-project"><strong>Explore the code »</strong></a>
+    <a href="https://github.com/PattyCoding123/my-notes-project"><strong>Check out the docs »</strong></a>
     <br />
     <br />
     <a href=#usage>View Demo</a>
