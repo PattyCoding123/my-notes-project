@@ -26,7 +26,7 @@
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href=#usage>View Demo</a>
     ·
     <a href="https://github.com/PattyCoding123/my-notes-project/issues">Report Bug</a>
     ·
@@ -67,9 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+As mentioned earlier, the project was my first hands-on experience using the Flutter framework as well as working with any sort of backend software in general. I utilized a full Flutter course to help guide me throughout the entire course of the project (https://youtu.be/VPvVD8t02U8). Many different packages from pub.dev helped in the developement of this project. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -77,8 +75,6 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
 * [![Flutter][Flutter-shield]][Flutter-url]
 * [![Firebase][Firebase-shield]][Firebase-url]
 * [![Android Studio][Android-Studio-shield]][Android-Studio-url]
@@ -197,10 +193,6 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/patrick-ducusin-879b25208/
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
 [Flutter-shield]: https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white
 [Flutter-url]: https://flutter.dev/
 [Firebase-shield]: https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black
