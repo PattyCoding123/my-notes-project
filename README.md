@@ -67,7 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-As mentioned earlier, the project was my first hands-on experience using the Flutter framework as well as working with any sort of backend software in general. I utilized a full Flutter course to help guide me throughout the entire course of the project (https://youtu.be/VPvVD8t02U8). Many different packages from pub.dev helped in the developement of this project. 
+As mentioned earlier, the project was my first hands-on experience using the Flutter framework as well as working with any sort of backend software in general. I utilized a full Flutter course by Vandad Nahavandipoor to help guide me throughout the entire course of the project (https://youtu.be/VPvVD8t02U8). Many different packages from pub.dev helped in the developement of this project. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
