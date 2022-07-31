@@ -119,10 +119,24 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
 ## Usage
 
 When first opening the app, you are given a login page along with multiple buttons that lead to other options regarding authentication.
+<img src="my-notes-screenshots/authentication.gif" width="400">
 
-<img src="my-notes-screenshots/authentication.gif">
+<br />
+<br />
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Then, once you log in, you are greeted with a list of all the notes you currently have saved in the cloud and the amount there are.
+<img src="my-notes-screenshots/notes_list.png" width="400">
+
+<br />
+<br />
+
+From the notes list, you are able to create a note with the plus button and type in it.
+<br />
+<img src="my-notes-screenshots/writing_note.gif" width="400">
+
+You can the delete a note from the main page and log out if wish.
+<br />
+<img src="my-notes-screenshots/delete_note.gif" width="400">
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
