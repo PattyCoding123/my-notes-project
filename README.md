@@ -26,8 +26,6 @@
     <a href="https://github.com/PattyCoding123/my-notes-project"><strong>Check out the docs »</strong></a>
     <br />
     <br />
-    <a href=#usage>View Demo</a>
-    ·
     <a href="https://github.com/PattyCoding123/my-notes-project/issues">Report Bug</a>
     ·
     <a href="https://github.com/PattyCoding123/my-notes-project/issues">Request Feature</a>
