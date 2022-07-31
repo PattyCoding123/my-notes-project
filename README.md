@@ -132,9 +132,9 @@ Then, once you log in, you are greeted with a list of all the notes you currentl
 <br />
 <br />
 
-From the notes list, you are able to create a note with the plus button and type in it.
+From the notes list, you are able to create a note with the plus button and type in it as well as share the contents using the share icon in the top right.
 <br />
-<img src="my-notes-screenshots/writing_note.gif" width="400">
+<img src="my-notes-screenshots/write_and_share_note.gif" width="400">
 
 <br />
 <br />
