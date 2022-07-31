@@ -118,8 +118,9 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### When first opening the app, you are given a login page along with multiple buttons that lead to other options regarding authentication.
-![]
+When first opening the app, you are given a login page along with multiple buttons that lead to other options regarding authentication.
+
+<img src="my-notes-screenshots/authentication.gif">
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
