@@ -87,27 +87,25 @@ As mentioned earlier, the project was my first hands-on experience using the Flu
 
 Since the app utilizes the Flutter framework, it is best to install an IDE that is compatible with Flutter such as Android Studio or VS Code.
 
+Once you have a compatible IDE installed, you can move to the prerequisites section to see what you must install.
+
 ### Prerequisites
 * Flutter - read the installation documentation [here](https://docs.flutter.dev/get-started/install)
 * Android device (minimum SDK >= 19) or an iOS device to run the application. 
-* If you lack a device, download [Android Studio][Android-Studio-url] and configure an Android emulator.
+* If you lack a device, download [Android Studio][Android-Studio-url] and configure an [Android emulator](https://developer.android.com/studio/run/emulator).
 
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/PattyCoding123/my-notes-project.git
    ```
-3. Install NPM packages
+2. Run flutter pub get
    ```sh
-   npm install
+   flutter pub get
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -175,7 +173,7 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 * [Vandad Nahavandipoor for the amazing guide into Flutter](youtube.com/channel/UC8NpGP0AOQ0kX9ZRcohiPeQ)
-* [Note Icon by svgrepo.com](https://www.svgrepo.com/)
+* [Note Icon provided by svgrepo.com](https://www.svgrepo.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
