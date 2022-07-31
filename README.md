@@ -119,12 +119,14 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
 ## Usage
 
 When first opening the app, you are given a login page along with multiple buttons that lead to other options regarding authentication.
+<br />
 <img src="my-notes-screenshots/authentication.gif" width="400">
 
 <br />
 <br />
 
 Then, once you log in, you are greeted with a list of all the notes you currently have saved in the cloud and the amount there are.
+<br />
 <img src="my-notes-screenshots/notes_list.png" width="400">
 
 <br />
