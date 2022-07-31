@@ -95,15 +95,19 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
 * If you lack a device, download [Android Studio][Android-Studio-url] and configure an [Android emulator](https://developer.android.com/studio/run/emulator).
 
 
-### Installation
+### Installation and Running
 
 1. Clone the repo
    ```sh
    git clone https://github.com/PattyCoding123/my-notes-project.git
    ```
-2. Run flutter pub get
+2. In the project directory, run "flutter pub get" in the terminal.
    ```sh
-   flutter pub get
+   ...\mynotes> flutter pub get
+   ```
+3. In the project directory, run "flutter run" in the terminal. You will be given an option of what device to run on. Use the Android emulator or physical Android/iOS device.
+   ```sh
+   ...\mynotes> flutter run
    ```
 
 
@@ -114,7 +118,8 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### In the app, you can 
+### When first opening the app, you are given a login page along with multiple buttons that lead to other options regarding authentication.
+![]
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
