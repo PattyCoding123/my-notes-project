@@ -85,16 +85,13 @@ As mentioned earlier, the project was my first hands-on experience using the Flu
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Since the app utilizes the Flutter framework, it is best to install an IDE that is compatible with Flutter such as Android Studio or VS Code.
 
 ### Prerequisites
+* Flutter - read the installation documentation [here](https://docs.flutter.dev/get-started/install)
+* Android device (minimum SDK >= 19) or an iOS device to run the application. 
+* If you lack a device, download [Android Studio][Android-Studio-url] and configure an Android emulator.
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
@@ -119,7 +116,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### In the app, you can 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -130,12 +127,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [x] User authentication
+- [x] CRUD functionality
+- [x] Cloud storage
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/PattyCoding123/my-notes-project/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -147,9 +143,9 @@ See the [open issues](https://github.com/github_username/repo_name/issues) for a
 If you have a suggestion that would make this project better or more optimal, please fork the repo and create a pull request. Alternatively, you can open an issue with the tag "enhancement" as well.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/NewFeature`)
+3. Commit your Changes (`git commit -m 'Add some NewFeature'`)
+4. Push to the Branch (`git push origin feature/NewFeature`)
 5. Open a Pull Request
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -162,6 +158,7 @@ If you have a suggestion that would make this project better or more optimal, pl
 Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 
 
 <!-- CONTACT -->
