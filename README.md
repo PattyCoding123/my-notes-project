@@ -14,16 +14,14 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/PattyCoding123/my-notes-project">
-    <img src="assets/icon.png" alt="Logo" width="80" height="80">
+    <img src="assets/icon/icon.png" alt="Logo" width="80" height="80">
   </a>
-
-<h3 align="center">My Notes Project</h3>
+  
+<h1 align="center">My Notes Project</h1>
 
   <p align="center">
     project_description
