@@ -1,16 +1,11 @@
 <div id="top"></div>
+
 <!-- PROJECT SHIELDS -->
 <!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** Reference link notation in markdown. Look at the bottom of the file
+*** for all links to the shields.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -82,6 +77,9 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
+* [![Flutter][Flutter-shield]][Flutter-url]
+* [![Firebase][Firebase-shield]][Firebase-url]
+* [![Android Studio][Android-Studio-shield]][Android-Studio-url]
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -192,14 +190,6 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/PattyCoding123/my-notes-project.svg?style=for-the-badge
-[contributors-url]: https://github.com/PattyCoding123/my-notes-project/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/PattyCoding123/my-notes-project.svg?style=for-the-badge
-[forks-url]: https://github.com/PattyCoding123/my-notes-project/network/members
-[stars-shield]: https://img.shields.io/github/stars/PattyCoding123/my-notes-project.svg?style=for-the-badge
-[stars-url]: https://github.com/PattyCoding123/my-notes-project/stargazers
-[issues-shield]: https://img.shields.io/github/issues/PattyCoding123/my-notes-project.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
 [license-shield]: https://img.shields.io/github/license/PattyCoding123/my-notes-project.svg?style=for-the-badge
 [license-url]: https://github.com/PattyCoding123/my-notes-project/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
@@ -209,3 +199,9 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[Flutter-shield]: https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white
+[Flutter-url]: https://flutter.dev/
+[Firebase-shield]: https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black
+[Firebase-url]: https://firebase.google.com/
+[Android-Studio-shield]: https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white
+[Android-Studio-url]: https://developer.android.com/studio
