@@ -200,7 +200,7 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 [forks-url]: https://github.com/PattyCoding123/my-notes-project/network/members
 [stars-shield]: https://img.shields.io/github/stars/PattyCoding123/my-notes-project.svg?style=for-the-badge
 [stars-url]: https://github.com/PattyCoding123/my-notes-project/stargazers
-[issues-shield]: https://img.shields.io/github/issues/PattyCoding123/my-notes-project.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/PattyCoding123/my-notes-project
 [issues-url]: https://github.com/PattyCoding123/my-notes-project/issues
 [license-shield]: https://img.shields.io/github/license/PattyCoding123/my-notes-project.svg?style=for-the-badge
 [license-url]: https://github.com/PattyCoding123/my-notes-project/blob/master/LICENSE.md
