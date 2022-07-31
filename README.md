@@ -199,7 +199,6 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 ## Acknowledgments
 * [Vandad Nahavandipoor for the amazing guide into Flutter](youtube.com/channel/UC8NpGP0AOQ0kX9ZRcohiPeQ)
 * [Note Icon provided by svgrepo.com](https://www.svgrepo.com/)
-* [othneildrew for the README template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
