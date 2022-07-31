@@ -10,7 +10,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+![GitHub issues](https://img.shields.io/github/issues/PattyCoding123/my-notes-project)
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -201,7 +201,7 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 [stars-shield]: https://img.shields.io/github/stars/PattyCoding123/my-notes-project.svg?style=for-the-badge
 [stars-url]: https://github.com/PattyCoding123/my-notes-project/stargazers
 [issues-shield]: https://img.shields.io/github/issues/PattyCoding123/my-notes-project
-[issues-url]: https://github.com/PattyCoding123/my-notes-project/issues
+[issues-url]: 
 [license-shield]: https://img.shields.io/github/license/PattyCoding123/my-notes-project.svg?style=for-the-badge
 [license-url]: https://github.com/PattyCoding123/my-notes-project/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
