@@ -23,7 +23,7 @@
     logic, and it also uses Firebase for backend authentication and data storage with Cloud Storage. The app allows users to sign-up for an account which they must
     verify with their email address, and once they reach the main page of the app, they can create, read, update, delete, and even share notes.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/PattyCoding123/my-notes-project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href=#usage>View Demo</a>
@@ -50,7 +50,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation-and-running">Installation</a></li>
+        <li><a href="#installation-and-running">Installation and Running</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -103,11 +103,11 @@ Once you have a compatible IDE installed, you can move to the prerequisites sect
    ```
 2. In the project directory, run "flutter pub get" in the terminal.
    ```sh
-   ...\mynotes> flutter pub get
+   ...\my-notes-project> flutter pub get
    ```
 3. In the project directory, run "flutter run" in the terminal. You will be given an option of what device to run on. Use the Android emulator or physical Android/iOS device.
    ```sh
-   ...\mynotes> flutter run
+   ...\my-notes-project> flutter run
    ```
 
 
@@ -133,6 +133,9 @@ Then, once you log in, you are greeted with a list of all the notes you currentl
 From the notes list, you are able to create a note with the plus button and type in it.
 <br />
 <img src="my-notes-screenshots/writing_note.gif" width="400">
+
+<br />
+<br />
 
 You can the delete a note from the main page and log out if wish.
 <br />
