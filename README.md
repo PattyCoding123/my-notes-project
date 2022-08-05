@@ -204,7 +204,7 @@ Project Link: [https://github.com/PattyCoding123/my-notes-project](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[license-shield]: https://img.shields.io/github/license/PattyCoding123/my-notes-project.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/PattyCoding123/my-notes-project?color=%23808080&style=for-the-badge
 [license-url]: https://github.com/PattyCoding123/my-notes-project/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/patrick-ducusin-879b25208/
