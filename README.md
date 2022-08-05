@@ -20,7 +20,7 @@
 
   <p align="center">
     My Notes Project is my introductory project to the Flutter framework. It includes a finished note-taking app that utilizes Flutter for the business/presentation
-    logic, and it also uses Firebase for backend authentication and data storage with Cloud Storage. The app allows users to sign-up for an account which they must
+    logic, and it also uses Firebase for back-end authentication and data storage with Cloud Storage. The app allows users to sign-up for an account which they must
     verify with their email address, and once they reach the main page of the app, they can create, read, update, delete, and even share notes.
     <br />
     <a href="https://github.com/PattyCoding123/my-notes-project"><strong>Check out the docs »</strong></a>
@@ -65,7 +65,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-As mentioned earlier, the project was my first hands-on experience using the Flutter framework as well as working with any sort of backend software in general. I utilized a full Flutter course by Vandad Nahavandipoor to help guide me throughout the entire course of the project (https://youtu.be/VPvVD8t02U8). Many different packages from pub.dev helped in the developement of this project. 
+As mentioned earlier, the project was my first hands-on experience using the Flutter framework as well as working with any sort of back-end software in general. I utilized a full Flutter course by Vandad Nahavandipoor to help guide me throughout the entire course of the project (https://youtu.be/VPvVD8t02U8). Many different packages from pub.dev helped in the developement of this project. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
